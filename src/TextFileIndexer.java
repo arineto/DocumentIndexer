@@ -8,6 +8,7 @@ import java.util.Vector;
 
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.br.BrazilianAnalyzer;
+import org.apache.lucene.analysis.en.EnglishAnalyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.analysis.util.CharArraySet;
 import org.apache.lucene.document.Document;
@@ -70,7 +71,7 @@ public class TextFileIndexer {
 				System.out.println("Versao sem stopword e sem steeming escolhida");
 				break;
 			case(2):
-				analyzer = new BrazilianAnalyzer(Version.LUCENE_40, new CharArraySet(Version.LUCENE_40, new Vector(), true));
+				analyzer = new EnglishAnalyzer(Version.LUCENE_40, new CharArraySet(Version.LUCENE_40, new Vector(), true));
 				System.out.println("Versao sem stopword e com steeming escolhida");
 				break;
 			case(3):
@@ -78,11 +79,11 @@ public class TextFileIndexer {
 				System.out.println("Versao com stopword e sem stemming escolhida");
 				break;
 			case(4):
-				analyzer = new BrazilianAnalyzer(Version.LUCENE_40);
+				analyzer = new EnglishAnalyzer(Version.LUCENE_40);
 				System.out.println("Versao com stopword e com steeming escolhida");
 				break;
 			default:
-				analyzer = new BrazilianAnalyzer(Version.LUCENE_40);
+				analyzer = new EnglishAnalyzer(Version.LUCENE_40);
 				System.out.println("Versao com stopword e com steeming escolhida");
 				break;
 		}
@@ -148,11 +149,14 @@ public class TextFileIndexer {
 				if(hits.length < 10){
 					my_len = hits.length;
 				}
-				for(int i=0;i<my_len;++i) {
+				System.out.print("[");
+				for(int i=0;i<hits.length;++i) {
 					int docId = hits[i].doc;
 					Document d = searcher.doc(docId);
-					System.out.println((i + 1) + ". " + d.get("path") + " | docID: " + docId + " | score: " + hits[i].score);
+//					System.out.println((i + 1) + ". " + d.get("path") + " | docID: " + docId + " | score: " + hits[i].score);
+					System.out.print("'"+d.get("path").substring(9, 18)+"',");
 				}
+				System.out.println("]");
 
 			} catch (Exception e) {
 				System.out.println("Error searching " + s + " : " + e);
