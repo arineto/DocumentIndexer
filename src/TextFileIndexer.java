@@ -149,14 +149,14 @@ public class TextFileIndexer {
 				if(hits.length < 10){
 					my_len = hits.length;
 				}
-				System.out.print("[");
-				for(int i=0;i<hits.length;++i) {
+//				System.out.print("[");
+				for(int i=0;i<my_len;++i) {
 					int docId = hits[i].doc;
 					Document d = searcher.doc(docId);
-//					System.out.println((i + 1) + ". " + d.get("path") + " | docID: " + docId + " | score: " + hits[i].score);
-					System.out.print("'"+d.get("path").substring(9, 18)+"',");
+					System.out.println((i + 1) + ". " + d.get("path") + " | docID: " + docId + " | score: " + hits[i].score);
+//					System.out.print("'"+d.get("path").substring(9, 18)+"',");
 				}
-				System.out.println("]");
+//				System.out.println("]");
 
 			} catch (Exception e) {
 				System.out.println("Error searching " + s + " : " + e);
